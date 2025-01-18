@@ -40,6 +40,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
 </script>
 
 <template>
+  <!-- 通过id选择器传递菜单 -->
   <Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`">
     <SimpleScrollbar class="menu-wrapper" :class="{ 'select-menu': !darkTheme }">
       <AMenu

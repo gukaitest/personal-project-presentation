@@ -38,7 +38,7 @@ export function translateOptions(options: CommonType.Option<string>[]) {
 }
 
 /**
- * Toggle html class
+ * Toggle html class 通过给根元素添加删除 class 切换成暗黑模式, document.documentElement指根元素html
  *
  * @param className
  */

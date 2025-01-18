@@ -26,6 +26,7 @@ const menuWrapperClass = computed(() => (showLogo.value ? 'flex-1-hidden' : 'h-f
       :show-title="!appStore.siderCollapse"
       :style="{ height: themeStore.header.height + 'px' }"
     />
+    <!-- 菜单容器,vertical-menu.vue通过Teleport :to="`#${GLOBAL_SIDER_MENU_ID}`传送过来-->
     <div :id="GLOBAL_SIDER_MENU_ID" :class="menuWrapperClass"></div>
   </DarkModeContainer>
 </template>

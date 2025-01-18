@@ -38,6 +38,7 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
         </p>
       </template>
     </ATooltip>
+    <!-- 包括主题颜色的5种颜色 -->
     <SettingItem v-for="(_, key) in themeStore.themeColors" :key="key" :label="$t(`theme.themeColor.${key}`)">
       <template v-if="key === 'info'" #suffix>
         <ACheckbox v-model:checked="themeStore.isInfoFollowPrimary">

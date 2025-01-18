@@ -163,7 +163,7 @@ const customRoutes: CustomRoute[] = [
   }
 ];
 
-/** create routes when the auth route mode is static */
+/** create routes when the auth route mode is static 创建静态路由 */
 export function createStaticRoutes() {
   const constantRoutes: ElegantRoute[] = [];
 
@@ -176,7 +176,7 @@ export function createStaticRoutes() {
       authRoutes.push(item);
     }
   });
-
+  console.log('constantRoutes', constantRoutes, authRoutes);
   return {
     constantRoutes,
     authRoutes

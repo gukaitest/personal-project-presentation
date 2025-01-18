@@ -68,7 +68,7 @@ export function createRouteGuard(router: Router) {
 }
 
 /**
- * initialize route
+ * initialize route初始化路由
  *
  * @param to to route
  */
@@ -79,6 +79,7 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
   const isNotFoundRoute = to.name === notFoundRoute;
 
   // if the constant route is not initialized, then initialize the constant route
+  // 1.初始化常量路由
   if (!routeStore.isInitConstantRoute) {
     await routeStore.initConstantRoute();
 
@@ -116,7 +117,7 @@ async function initRoute(to: RouteLocationNormalized): Promise<RouteLocationRaw 
 
     return location;
   }
-
+  // 2.初始化权限路由
   if (!routeStore.isInitAuthRoute) {
     // initialize the auth route
     await routeStore.initAuthRoute();

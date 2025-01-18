@@ -3,6 +3,7 @@ import type { ConfigProviderProps } from 'ant-design-vue';
 import { getColorPalette } from '@sa/color';
 import { getRgbOfColor } from '@sa/utils';
 import { defu } from 'defu';
+// 引入主题设置themeSettings
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { toggleHtmlClass } from '@/utils/common';
@@ -47,6 +48,7 @@ export function createThemeToken(
   tokens?: App.Theme.ThemeSetting['tokens'],
   recommended = false
 ) {
+  // 调色板颜色
   const paletteColors = createThemePaletteColors(colors, recommended);
 
   const { light, dark } = tokens || themeSettings.tokens;
@@ -139,34 +141,27 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
 }
 
 /**
- * Add theme vars to global
+ * Add theme vars to global 添加全局主题变量，暗黑模式切换
  *
  * @param tokens
  */
 export function addThemeVarsToGlobal(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
   const cssVarStr = getCssVarByTokens(tokens);
   const darkCssVarStr = getCssVarByTokens(darkTokens);
-
   const css = `
     :root {
       ${cssVarStr}
     }
   `;
-
   const darkCss = `
     html.${DARK_CLASS} {
       ${darkCssVarStr}
     }
   `;
-
   const styleId = 'theme-vars';
-
-  const style = document.querySelector(`#${styleId}`) || document.createElement('style');
-
+  const style = document.querySelector(`#${styleId}`) || document.createElement('style'); // style是元素变量名称，查询或者创建类型是style类型的元素
   style.id = styleId;
-
   style.textContent = css + darkCss;
-
   document.head.appendChild(style);
 }
 

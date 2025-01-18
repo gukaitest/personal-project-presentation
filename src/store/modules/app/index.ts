@@ -18,7 +18,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   const scope = effectScope();
   const breakpoints = useBreakpoints(breakpointsTailwind);
   const { bool: themeDrawerVisible, setTrue: openThemeDrawer, setFalse: closeThemeDrawer } = useBoolean();
-  const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
+  const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true); // 解构赋值加别名，例:bool的别名是reloadFlag,setBool的别名是setReloadFlag(改变的是reloadFlag的值)
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
   const { bool: contentXScrollable, setBool: setContentXScrollable } = useBoolean();
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();

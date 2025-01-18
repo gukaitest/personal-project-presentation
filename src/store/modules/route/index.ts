@@ -82,14 +82,16 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const menus = ref<App.Global.Menu[]>([]);
   const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
 
-  /** Get global menus */
+  /** Get global menus 设置菜单menus值 */
   function getGlobalMenus(routes: ElegantConstRoute[]) {
     menus.value = getGlobalMenusByAuthRoutes(routes);
+    console.log('菜单menus', menus.value);
   }
 
   /** Update global menus by locale */
   function updateGlobalMenusByLocale() {
     menus.value = updateLocaleOfGlobalMenus(menus.value);
+    console.log('菜单locale', menus.value);
   }
 
   /** Cache routes */
@@ -148,7 +150,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     removeRouteFns.length = 0;
   }
 
-  /** init constant route */
+  /** init constant route初始化常量路由 */
   async function initConstantRoute() {
     if (isInitConstantRoute.value) return;
 
@@ -174,7 +176,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     tabStore.initHomeTab();
   }
 
-  /** Init auth route */
+  /** Init auth route 初始化权限路由 */
   async function initAuthRoute() {
     // check if user info is initialized
     if (!authStore.userInfo.userId) {
@@ -190,7 +192,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     tabStore.initHomeTab();
   }
 
-  /** Init static auth route */
+  /** Init static auth route 初始化权限路由 */
   function initStaticAuthRoute() {
     const { authRoutes: staticAuthRoutes } = createStaticRoutes();
 
@@ -229,7 +231,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     }
   }
 
-  /** handle constant and auth routes */
+  /** handle constant and auth routes处理常量路由和权限路由 */
   function handleConstantAndAuthRoutes() {
     const allRoutes = [...constantRoutes.value, ...authRoutes.value];
 

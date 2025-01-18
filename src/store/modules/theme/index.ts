@@ -19,7 +19,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope();
   const osTheme = usePreferredColorScheme();
 
-  /** Theme settings */
+  /** Theme settings 主题设置 */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
 
   /** Reset store */
@@ -29,7 +29,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     themeStore.$reset();
   }
 
-  /** Theme colors */
+  /** Theme colors 5种颜色合一 */
   const themeColors = computed(() => {
     const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
     const colors: App.Theme.ThemeColor = {
@@ -40,7 +40,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     return colors;
   });
 
-  /** Dark mode */
+  /** Dark mode 暗黑模式 */
   const darkMode = computed(() => {
     if (settings.value.themeScheme === 'auto') {
       return osTheme.value === 'dark';
@@ -65,7 +65,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const settingsJson = computed(() => JSON.stringify(settings.value));
 
   /**
-   * Set theme scheme
+   * Set theme scheme 设置主题方案
    *
    * @param themeScheme
    */
@@ -91,7 +91,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.colourWeakness = isColourWeakness;
   }
 
-  /** Toggle theme scheme */
+  /** Toggle theme scheme 切换主题方案 */
   function toggleThemeScheme() {
     const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
 
@@ -135,7 +135,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     }
   }
 
-  /** Setup theme vars to global */
+  /** Setup theme vars to global 添加全局主题变量 */
   function setupThemeVarsToGlobal() {
     const { themeTokens, darkThemeTokens } = createThemeToken(
       themeColors.value,

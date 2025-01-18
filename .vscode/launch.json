@@ -6,7 +6,16 @@
       "request": "launch",
       "name": "Vue Debugger",
       "url": "http://localhost:9527",
-      "webRoot": "${workspaceFolder}"
+      "skipFiles": ["**/node_modules/**", "**/__uno/**"],
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*",
+        "!/node_modules/*": "null"
+      },
+      "sourceMaps": true,
+      "files.exclude": {
+        "node_modules": true
+      }
     },
     {
       "type": "node",
@@ -14,7 +23,9 @@
       "name": "TS Debugger",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/tsx",
       "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"],
-      "program": "${file}"
+      "program": "${file}",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
   ]
 }

@@ -3,7 +3,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   themeScheme: 'light',
   grayscale: false,
   colourWeakness: false,
-  recommendColor: false,
+  recommendColor: false, // 推荐颜色
   themeColor: '#646cff',
   otherColor: {
     info: '#2080f0',
