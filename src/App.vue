@@ -47,5 +47,5 @@ const watermarkProps = computed(() => {
   </ConfigProvider>
 </template>
 
-<!-- 前端测试 -->
+<!-- 前端测试CICD部署 第1次-->
 <style scoped></style>
