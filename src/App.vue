@@ -47,5 +47,5 @@ const watermarkProps = computed(() => {
   </ConfigProvider>
 </template>
 
-<!-- test2222222222 -->
+<!-- 前端测试 -->
 <style scoped></style>
