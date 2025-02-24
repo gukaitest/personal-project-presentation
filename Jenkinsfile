@@ -25,8 +25,8 @@ pipeline {
                      // 安装 pnpm
                     sh 'pnpm config set registry https://registry.npmmirror.com' // 设置镜像源
                     sh 'npm install -g pnpm'
-                  sh 'pnpm cache clean --force'
-        sh 'pnpm store prune'
+                    sh 'pnpm cache clean'
+                    sh 'pnpm store prune'
                     sh 'echo $PATH'
                     sh 'node -v'
                     sh 'pnpm -v'
