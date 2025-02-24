@@ -17,15 +17,19 @@ pipeline {
 
         stage('构建项目') {
             steps {
+                  
+                nodejs('NodeJS 18.x') {
+                     // 安装 pnpm
+                    sh 'npm install -g pnpm'
                     sh 'echo $PATH'
                     sh 'node -v'
-                    sh 'npm -v'
+                    sh 'pnpm -v'
                     sh 'echo "开始安装依赖..."'
-                    sh 'npm install'
+                    sh 'pnpm install'
                     sh 'echo "依赖安装完成，开始构建项目..."'
-                    sh 'npm run build'
+                    sh 'pnpm run build'
                     sh 'echo "项目构建完成。"'
-               
+                }
             }
         }
 
