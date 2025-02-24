@@ -17,7 +17,8 @@ pipeline {
 
         stage('构建项目') {
             steps {
-               
+                sh 'node -v'
+            sh 'npm -v'
                     sh 'echo "开始安装依赖..."'
                     sh 'npm install'
                     sh 'echo "依赖安装完成，开始构建项目..."'
