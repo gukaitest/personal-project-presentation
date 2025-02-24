@@ -18,7 +18,7 @@ pipeline {
         stage('构建项目') {
             steps {
                   
-                nodejs('NodeJS 18.x') {
+                nodejs('node 23.8.0') {
                      // 安装 pnpm
                     sh 'npm install -g pnpm'
                     sh 'echo $PATH'
