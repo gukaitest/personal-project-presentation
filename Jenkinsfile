@@ -20,6 +20,7 @@ pipeline {
                   
                 nodejs('node 23.8.0') {
                      // 安装 pnpm
+                    sh 'pnpm config set registry https://registry.npmmirror.com' // 设置镜像源
                     sh 'npm install -g pnpm'
                     sh 'echo $PATH'
                     sh 'node -v'
