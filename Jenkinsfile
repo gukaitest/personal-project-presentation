@@ -4,28 +4,79 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/gukaitest/personal-project-presentation.git'
+                git branch: 'main', url: 'https://github.com/gukaitest/personal-project-presentation.git'
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("front-end-core", ".")
+                    // 使用 Docker Pipeline 插件语法
+                     sh 'echo "构建镜像..."'
+                    dockerImage = docker.build("vue3-app:${env.BUILD_ID}", ".")
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                // 停止并删除旧容器
-                sh 'docker stop front-end-core-container || true'
-                sh 'docker rm front-end-core-container || true'
 
-                // 运行新容器，映射到合适的端口
-                sh 'docker run -d -p 8082:80 --name front-end-core-container front-end-core'
+        stage('Cleanup Old Container') {
+            steps {
+                script {
+                    sh 'docker stop vue3-app || true'
+                    sh 'docker rm vue3-app || true'
+                }
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                script {
+                    dockerImage.run("--name vue3-app -p 80:80 -d")
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                // 清理旧镜像
+                sh 'docker system prune -af'
             }
         }
     }
 }
+
+
+// pipeline {
+//     agent any
+
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 git 'https://github.com/gukaitest/personal-project-presentation.git'
+//             }
+//         }
+//         stage('Build Docker Image') {
+//             steps {
+//                 script {
+//                     sh 'echo "构建镜像..."'
+//                     docker.build("front-end-core", ".")
+//                      // 使用 docker.build 的正确语法
+//                 }
+//             }
+//         }
+//         stage('Deploy') {
+//             steps {
+//                 // 停止并删除旧容器
+//                 sh 'docker stop front-end-core-container || true'
+//                 sh 'docker rm front-end-core-container || true'
+
+//                 // 运行新容器，映射到合适的端口
+//                 sh 'docker run -d -p 8082:80 --name front-end-core-container front-end-core'
+//             }
+//         }
+//     }
+// }
 
 
 
