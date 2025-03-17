@@ -30,7 +30,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    dockerImage.run("--name vue3-app -p 80:80 -d")
+                    dockerImage.run("--name vue3-app -p 8082:80 -d")
                 }
             }
         }
