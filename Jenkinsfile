@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+      DOCKER_IMAGE = 'front-end-core'
+      PATH = "${env.PATH}:/usr/bin"
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -12,8 +16,11 @@ pipeline {
             steps {
                 script {
                     // 使用 Docker Pipeline 插件语法
-                     sh 'echo "构建镜像..."'
-                    dockerImage = docker.build("vue3-app:${env.BUILD_ID}", ".")
+                      sh 'echo "构建镜像..."'
+                      sh 'pwd'          // 输出当前工作区绝对路径
+                      sh 'ls -l'         // 列出所有文件，确认是否存在 Dockerfile
+                      sh 'find . -name Dockerfile'  // 搜索整个目录树1
+                      sh 'docker build -t front-end-core .'
                 }
             }
         }
@@ -21,8 +28,8 @@ pipeline {
         stage('Cleanup Old Container') {
             steps {
                 script {
-                    sh 'docker stop vue3-app || true'
-                    sh 'docker rm vue3-app || true'
+                    sh 'docker stop front-end-core-container|| true'
+                    sh 'docker rm front-end-core-container || true'
                 }
             }
         }
@@ -30,7 +37,10 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    dockerImage.run("--name vue3-app -p 8082:80 -d")
+                     // 停止并删除旧容器
+                    sh "docker stop front-end-core-container || true && docker rm front-end-core-container || true"
+                    // 运行新容器
+                    sh "docker run -d -p 8082:80 --name front-end-core-container ${DOCKER_IMAGE}"
                 }
             }
         }
@@ -132,11 +142,11 @@ pipeline {
 //                 script {
 //                     sshagent(['your_ssh_key_credential_id']) {
 //                         // 停止并删除旧容器
-//                         sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop vue3-app-container || true && docker rm vue3-app-container || true'"
+//                         sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'docker stop front-end-core-container || true && docker rm front-end-core-container || true'"
 //                         // 保存镜像并传输到服务器
 //                         sh "docker save ${DOCKER_IMAGE} | ssh ${REMOTE_USER}@${REMOTE_SERVER} 'docker load'"
 //                         // 运行新容器
-//                         sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'docker run -d -p 8080:80 --name vue3-app-container ${DOCKER_IMAGE}'"
+//                         sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'docker run -d -p 8080:80 --name front-end-core-container ${DOCKER_IMAGE}'"
 //                     }
 //                 }
 //             }
